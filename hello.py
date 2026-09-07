@@ -34,3 +34,4 @@ if age>40 and category =="fun":
     print("You are too old for this category") 
 
 print("Thank you for using our platform!")
+print ("this statement is for testing purpose")
