@@ -3,6 +3,7 @@ print("smart inventory system")
 print("===================")
 inventory = 0 
 failed_input =0 
+delivery = 0
 
 
 while True:
@@ -10,6 +11,8 @@ while True:
     if user_input.isdigit():
         user_int =int(user_input)
         inventory += user_int
+        delivery += 1
+        print(f"Tax amount {inventory  * 0.1  }")
         if inventory > 500:
             print("Alert: Inventory overflow")
             break
@@ -17,6 +20,7 @@ while True:
     elif user_input.lower() == "quit":
         print(f"Total inventory: {inventory}")
         print(f"Failed input attempts: {failed_input}")
+        print(f"Total deliveries: {delivery}")
         break
 
     else:
