@@ -4,6 +4,7 @@ print("===================")
 inventory = 0 
 failed_input =0 
 delivery = 0
+tax=0 
 
 def get_valid_input(user_input):
     if user_input.isdigit():
@@ -18,7 +19,8 @@ def process_delovery( delivery):
     return delivery 
 
 def calculate_tax(inventory):
-    return inventory * 0.1
+    tax = inventory * 0.1
+    return tax
 
 def generator_report(inventory, failed_input):
     print(f"Total inventory: {inventory}")
@@ -35,12 +37,16 @@ while True:
             generator_report(inventory, failed_input)
             break
         else:
-            inventory += valid_input
-            process_delovery(delivery)
-            print(f"Tax amount {calculate_tax(inventory)}")
             if inventory > 500:
                 print("Alert: Inventory overflow")
                 break
+            else:
+                tax = 0
+                inventory += valid_input
+                process_delovery(delivery)
+                tax = calculate_tax(valid_input)
+                print(f"Tax amount {tax}") 
+                
     else:
         failed_input += 1
         print("Invalid input. Please enter a valid number.")
