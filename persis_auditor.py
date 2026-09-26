@@ -3,51 +3,53 @@ print("smart inventory system")
 print("===================")
 inventory = 0 
 failed_input =0 
-delivery = 0
-tax=0 
+delivery = 0 
+order_number = 1
+list1 = []
+new_list = []
 
 def get_valid_input(user_input):
-    if user_input.isdigit():
+    if user_input.isdigit(): 
         return int(user_input)
     elif user_input.lower() == "quit":
         return "quit"
     else:
         return None
-    
-def process_delovery( delivery):
-    delivery += 1
-    return delivery 
-
-def calculate_tax(inventory):
-    tax = inventory * 0.1
-    return tax
 
 def generator_report(inventory, failed_input):
     print(f"Total inventory: {inventory}")
     print(f"Failed input attempts: {failed_input}")
     
+def save_invetory(user_input):
+    with open("inventory.txt", "a") as file:
+        file.write(f"{user_input}")
+    
+
 
 
     
 while True:
-    user_input = input("enter inventory quantity:")
-    valid_input = get_valid_input(user_input)
-    if valid_input is not None:
-        if valid_input == "quit":
-            generator_report(inventory, failed_input)
-            break
-        else:
-            if inventory > 500:
-                print("Alert: Inventory overflow")
+    
+    user_input = input("enter product name:")
+    if user_input.lower() == "quit":
+        break
+    else:
+        list1.append(order_number)
+        save_invetory(order_number)
+        order_number += 1
+        save_invetory(user_input)
+        list1.append(user_input)
+        user_input = input("enter inventory quantity:")
+        user_input = get_valid_input(user_input)
+        save_invetory(user_input)
+        if user_input is not None:
+            if user_input == "quit":
                 break
             else:
-                tax = 0
-                inventory += valid_input
-                process_delovery(delivery)
-                tax = calculate_tax(valid_input)
-                print(f"Tax amount {tax}") 
-                
-    else:
-        failed_input += 1
-        print("Invalid input. Please enter a valid number.")
-   
+                list1.append(user_input)
+
+
+    print (list1)
+
+    
+ 
