@@ -26,10 +26,16 @@ def get_product_name(user_input):
 def save_inventory(list1):
     with open("inventory.txt", "a") as file:
         file.write(f"{list1}" + "\n")
-    
 
-    
+def load_inventory():
+    with open("inventory.txt","r") as file:
+        print("Current Orders:")
+        for line in file:
+            print(line.strip("[]\n").replace("'",""))
+        print("\n")
+            
 while True:
+    #load_inventory()
     list1.clear()
     user_input = input("enter product name:")
     user_input=get_product_name(user_input)
@@ -48,8 +54,10 @@ while True:
                 product_quantity = user_input
                 list1.append([order_number,product_name,product_quantity])
                 save_inventory(list1)
+                print("New Order added:")
+                print(f"{order_number},{product_name},{product_quantity}" + "\n")
+                print("Order successfully saved to Inventory.txt" + "\n")
                 order_number +=1
-                
         else:
             print("invalid input.PLease enter valid number")
                 
