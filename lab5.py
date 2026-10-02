@@ -5,10 +5,13 @@ product_id = 0
 product_name = ""
 product_price = 0.0
 product_Inventory = 0
-Dictionary1 = {}
+dict1 = []
 
+def load_inventory():
+    with open ("inventory.json", "r") as file:
+        return json.load(file)
 
-
+dict1 = load_inventory()
 
 
 while user_input != "6":
@@ -22,8 +25,10 @@ while user_input != "6":
     user_input = input("Enter your choice (1-6): ")
 
     if user_input == "1":
-        # Add a new order
+        load_inventory()
         print("Current Inventory:")
+        for item in dict1:
+            print(f"ID: {item['product_id']}, Name: {item['product_name']}, Price: {item['product_price']}, Inventory: {item['product_Inventory']}")
         pass
     elif user_input == "2":
         # View all orders
@@ -32,12 +37,24 @@ while user_input != "6":
         product_name = input("Enter product name: ")
         product_price = input("Enter product price: ")
         product_Inventory = input("Enter product inventory: ")
-        list1.append({"product_id": product_id, "product_name": product_name, "product_price": product_price, "product_Inventory": product_Inventory})
+        dict1.append({"product_id": product_id, "product_name": product_name, "product_price": product_price, "product_Inventory": product_Inventory})
         with open("inventory.json","w") as file:
-            json.dump(list1,file)
+            json.dump(dict1,file)
         pass
     elif user_input == "3":
-        list1[0][""]
+        print("update stock")
+        search_id = input("Enter the product ID to search:")
+        for item in dict1:
+            if item["product_id"] == search_id:
+                print(f"ID: {item['product_id']}, Name: {item['product_name']}, Price: {item['product_price']}, Inventory: {item['product_Inventory']}")
+                print("Update Inventory:")      
+            else:
+                print("Product not found.")
+
+
+
+
+        
         pass
     elif user_input == "4":
         # Update an order by order number
