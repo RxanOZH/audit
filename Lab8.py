@@ -1,4 +1,5 @@
 import json
+import os
 
 class Product:
     def __init__(self, product_id, product_name, product_price, product_inventory):
@@ -11,7 +12,15 @@ class Product:
         print(f"ID: {self.product_id}|Name: {self.product_name}|Price: {self.product_price}|Stocks: {self.product_inventory}")
 
     def update_stock(self, new_stock):
-        self.product_inventory += new_stock
+        self.product_inventory = new_stock
+
+    def to_dict(self):
+        return {
+            "id": self.product_id,
+            "name": self.product_name,
+            "price": self.product_price,
+            "stock": self.product_inventory
+        }
 
 class Inventory:
     def __init__(self):
@@ -33,6 +42,12 @@ class Inventory:
             if product.product_id == product_id:
                 return product
         return None
+    def to_list(self):
+        return [product.to_dict() for product in self.products]
+
+def save_inventory(inventory):
+    with open("new_inventory.json", "w") as file:
+        json.dump(inventory.to_list(), file, indent=4)
 
 def main():
     user_input = 0
@@ -41,6 +56,16 @@ def main():
     product_price = 0.0
     product_inventory = 0
     inventory = Inventory()
+    if os.path.exists("new_inventory.json"):
+        try:
+            with open("new_inventory.json", "r") as file:
+                data = json.load(file)
+                for items in data:
+                    inventory.add_product(Product(items["id"], items["name"], items["price"], items["stock"]))
+        except (FileNotFoundError, json.JSONDecodeError):
+            # This catches BOTH a missing file and a completely empty/corrupted file
+            print("Inventory file is empty or missing. Starting with an empty inventory.")
+
     print ("====================================================")
     print ("|           Inventory Management System            |")
     print ("====================================================\n")
@@ -86,15 +111,26 @@ def main():
                 new_stock = int(input("Enter the new stock quantity: "))
                 product.update_stock(new_stock)
                 print("\nStock updated successfully!")
+        if user_input == 4:
+            print("\nSearch Product")
+            search_id = input("Enter the product ID to search: ")
+            product = inventory.search_product(search_id)
 
-
-
+            if product is None:
+                print("Product not found.")
+            else:
+                print("\nProduct found:")
+                product.display()
+        if user_input == 5:
+            print("\nSaving Inventory")
+            save_inventory(inventory)
+        if user_input == 6:
+            print("\nSaving Inventory before exit...")
+            save_inventory(inventory)
+            print("Inventory saved successfully.")
+            print("\nThank you for using Inventory Management System.")
+            print("Program terminated.")
+            break
+   
 while True:
     main() 
-
-
-
-
-    
-
-
