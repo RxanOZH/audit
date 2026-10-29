@@ -65,7 +65,7 @@ class Inventory:
 
     def search_product(self, product_id):
         for product in self.__products:
-            if product.__product_id == product_id:
+            if product._Product__product_id == product_id:
                 return product
         return None
     def to_list(self):
