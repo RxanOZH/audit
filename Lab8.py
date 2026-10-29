@@ -1,49 +1,75 @@
 import json
 import os
+"""
+_____________________________________
+Product                              |   <-- Class Name
+_____________________________________|
+- __product_id: String               |    
+- __name: String                     |   <-- Attributes
+- __price: float                     |
+- __stock: int                       |
+_____________________________________|            |
++ update_stock(quantity : int): void |   <-- Methods
++ display(): void        |
++ to_dict(): dict                    |
+_____________________________________|
+"""
 
 class Product:
     def __init__(self, product_id, product_name, product_price, product_inventory):
-        self.product_id = product_id
-        self.product_name = product_name
-        self.product_price = product_price
-        self.product_inventory = product_inventory
+        self.__product_id = product_id
+        self.__name = product_name
+        self.__price = product_price
+        self.__stock = product_inventory
 
     def display(self):
-        print(f"ID: {self.product_id}|Name: {self.product_name}|Price: {self.product_price}|Stocks: {self.product_inventory}")
+        print(f"ID: {self.__product_id}|Name: {self.__name}|Price: {self.__price}|Stocks: {self.__stock}")
 
     def update_stock(self, new_stock):
-        self.product_inventory = new_stock
+        self.__stock = new_stock
 
     def to_dict(self):
         return {
-            "id": self.product_id,
-            "name": self.product_name,
-            "price": self.product_price,
-            "stock": self.product_inventory
+            "id": self.__product_id,
+            "name": self.__name,
+            "price": self.__price,
+            "stock": self.__stock
         }
+"""
+_____________________________________
+Inventory                            |   <-- Class Name
+_____________________________________|   
+- __products: list[Products]         |   <-- Attributes
+_____________________________________|
++ display_all()                      |
++ add_product(product)               |   <-- Methods
++ search_product(product_id: str)    |
++ to_list(): list[dict]              |
+_____________________________________|
+"""
 
 class Inventory:
     def __init__(self):
-        self.products = []
+        self.__products = []
 
     def display_all(self):
-        if not self.products:
+        if not self.__products:
             print("Inventory is empty.")
             return
         
-        for product in self.products:
+        for product in self.__products:
             product.display()
 
     def add_product(self, product):
-        self.products.append(product)
+        self.__products.append(product)
 
     def search_product(self, product_id):
-        for product in self.products:
-            if product.product_id == product_id:
+        for product in self.__products:
+            if product.__product_id == product_id:
                 return product
         return None
     def to_list(self):
-        return [product.to_dict() for product in self.products]
+        return [product.to_dict() for product in self.__products]
 
 def save_inventory(inventory):
     with open("new_inventory.json", "w") as file:
@@ -132,5 +158,5 @@ def main():
             print("Program terminated.")
             break
    
-while True:
-    main() 
+
+main() 
