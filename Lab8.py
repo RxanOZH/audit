@@ -150,6 +150,7 @@ def main():
         if user_input == 5:
             print("\nSaving Inventory")
             save_inventory(inventory)
+            print("Inventory saved successfully.")
         if user_input == 6:
             print("\nSaving Inventory before exit...")
             save_inventory(inventory)
