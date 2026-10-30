@@ -39,7 +39,11 @@ class Product(ABC):
     def get_fulfillment_info(self):
         pass
 
-class PhysicalProduct(Product):
+class CanBeShipped(ABC):
+    def calculate_shipping_cost():
+        pass
+
+class PhysicalProduct(Product, CanBeShipped ):
     def __init__(self, product_id, product_name, product_price, product_inventory, weight):
         super().__init__(product_id, product_name, product_price, product_inventory)
         self.__weight = weight
@@ -47,6 +51,7 @@ class PhysicalProduct(Product):
     def display_information(self):
         super().display()
         print(f"Weight: {self.__weight} kg")
+        print(f"the shipping cost is{self.calculate_shipping_cost()}")
 
     def get_fulfillment_info(self):
         print("This Product neeed to be Physically Shipped.")
@@ -56,6 +61,13 @@ class PhysicalProduct(Product):
         data["type"]="physical"
         data["weight"]= self.__weight
         return data
+    def calculate_shipping_cost(self):
+        ship_cost=  self.__weight * 10
+        return ship_cost
+        
+
+
+    
 
 class DigitalProduct(Product):
     def __init__(self, product_id, product_name, product_price, product_inventory, file_size):
@@ -98,7 +110,7 @@ class Inventory:
             return
         
         for product in self.__products:
-            product.display()
+            product.display_information()
 
     def add_product(self, product):
         self.__products.append(product)
@@ -110,6 +122,7 @@ class Inventory:
         return None
     def to_list(self):
         return [product.to_dict() for product in self.__products]
+
 
 def save_inventory(inventory):
     with open("new_inventory.json", "w") as file:
@@ -129,7 +142,13 @@ def main():
             with open("new_inventory.json", "r") as file:
                 data = json.load(file)
                 for items in data:
-                    inventory.add_product(Product(items["id"], items["name"], items["price"], items["stock"]))
+                    if items.get("type") == "physical":
+                        product = PhysicalProduct(items["id"], items["name"], items["price"], items["stock"], items["weight"])
+                        inventory.add_product(product)
+                    elif items.get("type") == "digital":
+                        product = DigitalProduct(items["id"], items["name"], items["price"], items["stock"], items["file_size"])
+                        inventory.add_product(product)
+                    
         except (FileNotFoundError, json.JSONDecodeError):
             # This catches BOTH a missing file and a completely empty/corrupted file
             print("Inventory file is empty or missing. Starting with an empty inventory.")
@@ -197,7 +216,9 @@ def main():
                 print("Product not found.")
             else:
                 print("\nProduct found:")
-                product.display()
+                product.display_information()
+
+
         if user_input == 5:
             print("\nSaving Inventory")
             save_inventory(inventory)
