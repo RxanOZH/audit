@@ -1,0 +1,18 @@
+[
+    {
+        "id": "001",
+        "name": "apple",
+        "price": 4.5,
+        "stock": 50,
+        "type": "physical",
+        "weight": 45.0
+    },
+    {
+        "id": "002",
+        "name": "tft",
+        "price": 4.5,
+        "stock": 4,
+        "type": "digital",
+        "file_size": 45.0
+    }
+]

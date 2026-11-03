@@ -7,5 +7,9 @@ COPY modular_auditor.py .
 COPY persis_auditor.py .
 COPY lab5.py .
 COPY inventory.json .
+COPY new_inventory.json .
+COPY Lab8.py .
+COPY classes/ ./classes/
+COPY lab9.py .
 
-cmd ["python", "lab5.py"]
+cmd ["python", "Lab9.py"]

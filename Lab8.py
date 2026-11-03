@@ -1,7 +1,7 @@
 import json
 import os
-from lab8class.Inventory import Inventory
-from lab8class.Product import Product
+from classes.Inventory import Inventory
+from classes.Product import Product
    
 def save_inventory(inventory):
     with open("new_inventory.json", "w") as file:
