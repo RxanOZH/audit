@@ -46,7 +46,7 @@ def main():
     print("4. Search Product")
     print("5. Save Inventory")
     print("6. Quit the program")
-    print ("----------------\n\n")
+    print ("----------------\n")
 
     while user_input != 6:
         user_input = int(input("Enter your choice (1-6): "))
