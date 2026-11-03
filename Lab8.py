@@ -1,76 +1,8 @@
 import json
 import os
-"""
-_____________________________________
-Product                              |   <-- Class Name
-_____________________________________|
-- __product_id: String               |    
-- __name: String                     |   <-- Attributes
-- __price: float                     |
-- __stock: int                       |
-_____________________________________|            |
-+ update_stock(quantity : int): void |   <-- Methods
-+ display(): void        |
-+ to_dict(): dict                    |
-_____________________________________|
-"""
-
-class Product:
-    def __init__(self, product_id, product_name, product_price, product_inventory):
-        self.__product_id = product_id
-        self.__name = product_name
-        self.__price = product_price
-        self.__stock = product_inventory
-
-    def display(self):
-        print(f"ID: {self.__product_id}|Name: {self.__name}|Price: {self.__price}|Stocks: {self.__stock}")
-
-    def update_stock(self, new_stock):
-        self.__stock = new_stock
-
-    def to_dict(self):
-        return {
-            "id": self.__product_id,
-            "name": self.__name,
-            "price": self.__price,
-            "stock": self.__stock
-        }
-"""
-_____________________________________
-Inventory                            |   <-- Class Name
-_____________________________________|   
-- __products: list[Products]         |   <-- Attributes
-_____________________________________|
-+ display_all()                      |
-+ add_product(product)               |   <-- Methods
-+ search_product(product_id: str)    |
-+ to_list(): list[dict]              |
-_____________________________________|
-"""
-
-class Inventory:
-    def __init__(self):
-        self.__products = []
-
-    def display_all(self):
-        if not self.__products:
-            print("Inventory is empty.")
-            return
-        
-        for product in self.__products:
-            product.display()
-
-    def add_product(self, product):
-        self.__products.append(product)
-
-    def search_product(self, product_id):
-        for product in self.__products:
-            if product._Product__product_id == product_id:
-                return product
-        return None
-    def to_list(self):
-        return [product.to_dict() for product in self.__products]
-
+from lab8class.Inventory import Inventory
+from lab8class.Product import Product
+   
 def save_inventory(inventory):
     with open("new_inventory.json", "w") as file:
         json.dump(inventory.to_list(), file, indent=4)
