@@ -12,8 +12,9 @@ _____________________________________|            |
 + to_dict(): dict                    |
 _____________________________________|
 """
+from abc import ABC, abstractmethod
 
-class Product:
+class Product(ABC):
     def __init__(self, product_id, product_name, product_price, product_inventory):
         self.__product_id = product_id
         self.__name = product_name
@@ -25,6 +26,10 @@ class Product:
 
     def update_stock(self, new_stock):
         self.__stock = new_stock
+
+    
+    def get_fulfillment_info(self):
+        pass
 
     def to_dict(self):
         return {
