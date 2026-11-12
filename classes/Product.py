@@ -13,25 +13,28 @@ _____________________________________|            |
 _____________________________________|
 """
 from abc import ABC, abstractmethod
+from classes.Supplier import Supplier
 
 class Product(ABC):
-    def __init__(self, product_id, product_name, product_price, product_inventory):
+    def __init__(self, product_id: str, product_name: str, product_price: float, product_inventory: int, supplier: Supplier = Supplier):
         self.__product_id = product_id
         self.__name = product_name
         self.__price = product_price
         self.__stock = product_inventory
+        self._supplier = supplier
 
-    def display(self):
+    def display(self)-> None:
         print(f"ID: {self.__product_id}|Name: {self.__name}|Price: {self.__price}|Stocks: {self.__stock}")
+        
 
-    def update_stock(self, new_stock):
+    def update_stock(self, new_stock: int):
         self.__stock = new_stock
 
     
-    def get_fulfillment_info(self):
+    def get_fulfillment_info(self)-> None:
         pass
 
-    def to_dict(self):
+    def to_dict(self)-> dict:
         return {
             "id": self.__product_id,
             "name": self.__name,
