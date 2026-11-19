@@ -3,16 +3,39 @@
         "id": "001",
         "name": "apple",
         "price": 4.5,
-        "stock": 50,
+        "stock": 45,
         "type": "physical",
-        "weight": 45.0
+        "weight": 45.0,
+        "supplier": {
+            "supplier_id": "S001",
+            "name": "Supplier One",
+            "email": "supplier1@example.com"
+        }
     },
     {
         "id": "002",
+        "name": "orange",
+        "price": 6.4,
+        "stock": 64,
+        "type": "physical",
+        "weight": 64.0,
+        "supplier": {
+            "supplier_id": "S001",
+            "name": "Supplier One",
+            "email": "supplier1@example.com"
+        }
+    },
+    {
+        "id": "003",
         "name": "tft",
-        "price": 4.5,
+        "price": 45.0,
         "stock": 4,
         "type": "digital",
-        "file_size": 45.0
+        "file_size": 45.0,
+        "supplier": {
+            "supplier_id": "S002",
+            "name": "Supplier Two",
+            "email": "supplier2@example.com"
+        }
     }
 ]
